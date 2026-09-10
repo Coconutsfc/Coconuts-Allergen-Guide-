@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coconuts Fish Cafe Allergen Guide</title>
+<style>
+:root{
+  --ink:#16363a; --muted:#668084; --teal:#0f6670; --teal2:#167d88;
+  --cream:#fffaf2; --sand:#f4ead8; --card:#ffffff; --line:#dbe7e6;
+  --gf:#dff4e4; --gfink:#19613a; --warn:#fff0d5; --warnink:#7b4e00;
+  --danger:#fde7e4; --dangerink:#8a2f26; --chip:#eef5f5;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  color:var(--ink); background:linear-gradient(180deg,#f8fbfa 0%,var(--cream) 100%);
+}
+.wrap{max-width:980px;margin:0 auto;padding:18px}
+.hero{
+  background:linear-gradient(135deg,var(--teal),var(--teal2));
+  color:white;border-radius:24px;padding:24px 20px;margin-bottom:16px;
+}
+.hero h1{margin:0;font-size:28px;line-height:1.05}
+.hero p{margin:8px 0 0;opacity:.92}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.hero .pill{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);color:#fff}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;margin:12px 0}
+.controls{display:grid;grid-template-columns:1.25fr .75fr;gap:12px}
+@media(max-width:680px){.controls{grid-template-columns:1fr}}
+label{font-weight:700;font-size:14px}
+select,button{
+  width:100%;min-height:46px;border-radius:14px;border:1px solid var(--line);
+  background:white;color:var(--ink);font-size:16px;padding:10px 12px
+}
+select{margin-top:7px}
+.toggleRow{display:flex;align-items:center;gap:10px;margin-top:7px;min-height:46px}
+.toggleRow input{width:22px;height:22px}
+.categoryStrip{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.categoryStrip::-webkit-scrollbar{display:none}
+.categoryBtn{width:auto;white-space:nowrap;padding:10px 14px;font-weight:700}
+.categoryBtn.active{background:var(--teal);color:#fff;border-color:var(--teal)}
+.status{font-size:14px;color:var(--muted);margin:10px 2px 2px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media(max-width:680px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px}
+.cardTop{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.cat{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.name{font-size:18px;font-weight:800;margin-top:2px}
+.pill{display:inline-flex;align-items:center;padding:6px 9px;border-radius:999px;background:var(--chip);
+  border:1px solid var(--line);font-size:12px;font-weight:700;margin:7px 5px 0 0}
+.gf{background:var(--gf);color:var(--gfink);border-color:#c5e6cc;white-space:nowrap}
+.warn{background:var(--warn);color:var(--warnink);border-color:#f2ddb4}
+.danger{background:var(--danger);color:var(--dangerink);border-color:#f4c9c3}
+.note{margin-top:10px;color:var(--muted);font-size:14px;line-height:1.4}
+.sectionTitle{font-size:18px;font-weight:900;margin:22px 0 8px}
+.key{display:flex;flex-wrap:wrap;gap:6px}
+.footer{font-size:13px;color:var(--muted);line-height:1.5;padding:6px 2px 24px}
+.empty{padding:26px;text-align:center;color:var(--muted)}
+.small{font-size:13px;color:var(--muted);line-height:1.45}
+strong{font-weight:800}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <h1>Coconuts Fish Cafe</h1>
+    <p>FOH Allergen Quick Reference • Azeka + Kamaole</p>
+    <div class="badges">
+      <span class="pill">Tap a category</span>
+      <span class="pill">Filter an allergen</span>
+      <span class="pill">Spot GF ✓ items fast</span>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="controls">
+      <div>
+        <label for="avoid">Guest needs to avoid</label>
+        <select id="avoid">
+          <option value="">Show all items</option>
+          <option>Gluten/Wheat</option>
+          <option>Dairy</option>
+          <option>Egg</option>
+          <option>Soy</option>
+          <option>Fish</option>
+          <option>Shellfish</option>
+          <option>Tree Nut</option>
+          <option>Sesame</option>
+          <option>Coconut</option>
+        </select>
+      </div>
+      <div>
+        <label>Quick filter</label>
+        <div class="toggleRow">
+          <input id="gfOnly" type="checkbox">
+          <span><strong>GF ✓ only</strong><br><span class="small">Standard menu build</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="categoryStrip" id="cats" aria-label="Menu categories"></div>
+    <div class="status" id="status" aria-live="polite"></div>
+  </section>
+
+  <main class="grid" id="results"></main>
+
+  <div class="sectionTitle">Allergen key</div>
+  <section class="panel">
+    <div class="key">
+      <span class="pill">G = Gluten/Wheat</span><span class="pill">D = Dairy</span>
+      <span class="pill">E = Egg</span><span class="pill">S = Soy</span>
+      <span class="pill">F = Fish</span><span class="pill">SH = Shellfish</span>
+      <span class="pill">TN = Tree Nut</span><span class="pill">SE = Sesame</span>
+      <span class="pill">C = Coconut</span><span class="pill gf">GF ✓ = Gluten-Free</span>
+    </div>
+  </section>
+
+  <div class="sectionTitle">FOH allergy response</div>
+  <section class="panel">
+    <div class="small">
+      <strong>1.</strong> Ask which allergen needs to be avoided.<br>
+      <strong>2.</strong> Enter the allergy in Toast.<br>
+      <strong>3.</strong> Use this guide to identify primary allergens.<br>
+      <strong>4.</strong> For severe allergies, celiac disease, or uncertainty, involve a manager/BOH.
+    </div>
+    <p><strong>Never guess when answering a guest's allergy question.</strong></p>
+  </section>
+
+  <section class="panel">
+    <strong>Shared fryer / cross-contact</strong>
+    <p class="small">GF ✓ identifies items that are gluten-free in their standard menu build. Shared fryers and other shared kitchen equipment may still present cross-contact concerns for guests with celiac disease or severe allergies.</p>
+  </section>
+
+  <div class="footer">
+    Internal quick reference. Update whenever recipes, vendors, or menu builds change.
+  </div>
+</div>
+
+<script>
+const A={G:'Gluten/Wheat',D:'Dairy',E:'Egg',S:'Soy',F:'Fish',SH:'Shellfish',TN:'Tree Nut',SE:'Sesame',C:'Coconut'};
+const items=[
+['Pu-Pu','Coconut Shrimp',['SH','C','G'],false,'Shared fryer'],
+['Pu-Pu','Calamari',['SH','G'],false,'Shared fryer'],
+['Pu-Pu','Ahi Poke — Shoyu',['F','S','G'],false,''],
+['Pu-Pu','Ahi Poke — Spicy',['F','E'],false,''],
+['Pu-Pu','Ahi Poke — Teriyaki',['F','S','G'],false,''],
+['Pu-Pu','Poke Nachos',['F','E','S','G','SE'],false,'Poke choice affects allergens'],
+['Pu-Pu','Mochiko Chicken',['S'],false,'Shared fryer; teriyaki adds gluten/wheat'],
+
+['Baskets','Mahi Mahi Fish & Chips',['F','G','E'],false,'Shared fryer'],
+['Baskets','Calamari & Chips',['SH','G'],false,'Shared fryer'],
+['Baskets','Coconut Shrimp & Chips',['SH','C','G'],false,'Shared fryer'],
+['Baskets','Mochiko Chicken Basket',['S'],false,'Shared fryer; teriyaki adds gluten/wheat'],
+['Baskets','Tsunami Fries',['E','SE'],false,'Shared fryer'],
+['Baskets','Panko Onion Rings',['G'],false,'Shared fryer'],
+
+['Tacos','Fish Tacos',['F','D'],true,''],
+['Tacos','Chicken Tacos',['D'],true,''],
+['Tacos','Shrimp Tacos',['SH','D'],true,''],
+['Tacos','Kalua Pork Tacos',['D'],true,''],
+['Tacos','Tofu Veggie Tacos',['S','D'],true,''],
+['Tacos','Taco Salad / Mountain',[],false,'Same allergens as selected taco and toppings'],
+
+['Sandwiches','Grilled Ono Sandwich',['F','G','E'],false,''],
+['Sandwiches','Grilled Mahi Sandwich',['F','G','E'],false,''],
+['Sandwiches','Seared Ahi Sandwich',['F','G','E'],false,''],
+['Sandwiches','Kalua Pork Sandwich',['G'],false,''],
+['Sandwiches','Mac Nut Pesto Grilled Chicken',['TN','G','D','E'],false,'Contains macadamia nut'],
+['Sandwiches','Wagyu Burger',['G','D','E'],false,''],
+['Sandwiches','Taro Burger',[],false,'ASK MANAGER — full ingredient build has not yet been added'],
+
+['Salads','Mixed Greens Salad',['TN'],false,'Macadamia nuts; dressing may add allergens'],
+['Salads','Caesar Salad',['D','G','E','F'],false,''],
+['Salads','Grilled Fish Salad',['F','SH'],false,'Includes shrimp; dressing may add allergens'],
+['Salads','Seared Ahi Salad',['F','SH'],false,'Includes shrimp; dressing may add allergens'],
+['Salads','Grilled Chicken Salad',[],false,'Allergens depend on preparation and dressing'],
+
+['Local Plates','Grilled Ono / Mahi Plate',['F'],true,'Sauce/preparation may add dairy or egg'],
+['Local Plates','Seared Ahi Plate',['F'],true,'Sauce/preparation may add dairy or egg'],
+['Local Plates','Kalua Pork Plate',[],false,'Sauce and sides may add allergens'],
+['Local Plates','Grilled Chicken Plate',['S','G'],false,'Teriyaki'],
+['Local Plates','Macadamia Nut Crusted Mahi',['F','TN','C'],false,'Macadamia nut + coconut'],
+['Local Plates','Mochiko Chicken Plate',['S'],false,'Teriyaki adds gluten/wheat'],
+
+['Poke Bowls','Ahi Poke Bowl',['F'],false,'Shoyu/teriyaki add soy + gluten/wheat; spicy adds egg'],
+['Poke Bowls','Salmon Poke Bowl',['F'],false,'Sauce choice affects allergens'],
+
+['Keiki','Fish & Chips',['F','G'],false,'Shared fryer'],
+['Keiki','Cheeseburger & Fries',['G','D'],false,'Shared fryer'],
+['Keiki','Cheese Quesadilla',['G','D'],false,''],
+['Keiki','Mochiko Chicken & Fries/Rice',['S'],false,'Shared fryer if served with fries'],
+['Keiki','Kraft Mac & Cheese',['G','D'],false,''],
+['Keiki','Hot Dog & Fries',['G'],false,'Shared fryer'],
+['Keiki','Grilled Mahi-Mahi & Rice',['F'],true,''],
+
+['Sides','Coconut Milk Coleslaw',['C'],true,''],
+['Sides','Side Green Salad',[],false,'Dressing determines allergens'],
+['Sides','Side Caesar Salad',['D','G','E','F'],false,''],
+['Sides','Macaroni Salad',['G','E'],false,''],
+['Sides','Fries',[],false,'Shared fryer'],
+['Sides','White Rice',[],true,''],
+['Sides','Brown Rice',[],true,''],
+
+['Sauces','Lemon Butter',['D'],false,''],
+['Sauces','Wasabi / Ginger Wasabi Aioli',['E'],false,''],
+['Sauces','Garlic / Lemon / Sriracha Aioli',['E'],false,''],
+['Sauces','Mac Nut Pesto / Pesto Aioli',['TN','E','D'],false,'Macadamia nut'],
+['Sauces','Teriyaki',['S','G'],false,''],
+['Sauces','Shoyu',['S','G'],false,''],
+['Sauces','Tartar Sauce',['E'],false,''],
+['Sauces','Furikake',['SE'],false,''],
+['Sauces','Caesar Dressing',['E','D','F'],false,'']
+];
+
+const cats=['All',...new Set(items.map(x=>x[0]))];
+let cat='All';
+const catBox=document.getElementById('cats');
+const results=document.getElementById('results');
+const avoid=document.getElementById('avoid');
+const gf=document.getElementById('gfOnly');
+const status=document.getElementById('status');
+
+function drawCats(){
+  catBox.innerHTML='';
+  cats.forEach(x=>{
+    const b=document.createElement('button');
+    b.type='button'; b.textContent=x;
+    b.className='categoryBtn'+(x===cat?' active':'');
+    b.addEventListener('click',()=>{cat=x;drawCats();render();});
+    catBox.appendChild(b);
+  });
+}
+
+function render(){
+  const av=avoid.value;
+  const filtered=items.filter(x=>{
+    const inCat=cat==='All'||x[0]===cat;
+    const gfOk=!gf.checked||x[3];
+    const avoids=!av||!x[2].some(k=>A[k]===av);
+    return inCat && gfOk && avoids;
+  });
+
+  results.innerHTML='';
+  filtered.forEach(x=>{
+    const card=document.createElement('article');
+    card.className='card';
+    const manager=x[4].startsWith('ASK MANAGER');
+    const chips=x[2].map(k=>`<span class="pill">${A[k]}</span>`).join('');
+    card.innerHTML=`
+      <div class="cardTop">
+        <div>
+          <div class="cat">${x[0]}</div>
+          <div class="name">${x[1]}</div>
+        </div>
+        ${x[3]?'<span class="pill gf">GF ✓</span>':''}
+      </div>
+      <div>${chips || '<span class="pill">No primary allergen listed</span>'}</div>
+      ${x[4]?`<div class="note ${manager?'danger':''}" ${manager?'style="padding:9px 10px;border-radius:12px"':''}>${x[4]}</div>`:''}
+    `;
+    results.appendChild(card);
+  });
+
+  status.textContent=`${filtered.length} item${filtered.length===1?'':'s'} shown`+
+    (av?` • excludes items listing ${av}`:'')+
+    (gf.checked?' • GF ✓ only':'')+'.';
+
+  if(!filtered.length){
+    results.innerHTML='<div class="panel empty" style="grid-column:1/-1">No items match these filters.</div>';
+  }
+}
+
+avoid.addEventListener('change',render);
+gf.addEventListener('change',render);
+drawCats();
+render();
+</script>
+</body>
+</html>
