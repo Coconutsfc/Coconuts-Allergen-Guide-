@@ -144,15 +144,15 @@ const A={G:'Gluten/Wheat',D:'Dairy',E:'Egg',S:'Soy',F:'Fish',SH:'Shellfish',TN:'
 const items=[
 ['Pu-Pu','Coconut Shrimp',['SH','C','G','D'],false,'Shared fryer'],
 ['Pu-Pu','Calamari',['SH','G'],false,'Shared fryer'],
-['Pu-Pu','Ahi Poke — Shoyu',['F','S','G'],false,''],
-['Pu-Pu','Ahi Poke — Spicy',['F','E'],false,''],
-['Pu-Pu','Ahi Poke — Teriyaki',['F','S','G'],false,''],
+['Pu-Pu','Ahi Poke — Shoyu',['F','S','SE',],false,''],
+['Pu-Pu','Ahi Poke — Spicy',['F','E','SE'],false,''],
+['Pu-Pu','Ahi Poke — Teriyaki',['F','S','SE','G'],false,''],
 ['Pu-Pu','Poke Nachos',['F','E','S','G','SE'],false,'Poke choice affects allergens'],
 ['Pu-Pu','Mochiko Chicken',['S'],false,'Shared fryer; teriyaki adds gluten/wheat'],
 
 ['Baskets','Mahi Mahi Fish & Chips',['F','G','E'],false,'Shared fryer'],
 ['Baskets','Calamari & Chips',['SH','G'],false,'Shared fryer'],
-['Baskets','Coconut Shrimp & Chips',['SH','C','G'],false,'Shared fryer'],
+['Baskets','Coconut Shrimp & Chips',['SH','C','G','D'],false,'Shared fryer'],
 ['Baskets','Mochiko Chicken Basket',['S'],false,'Shared fryer; teriyaki adds gluten/wheat'],
 ['Baskets','Tsunami Fries',['E','SE'],false,'Shared fryer'],
 ['Baskets','Panko Onion Rings',['G'],false,'Shared fryer'],
@@ -185,8 +185,8 @@ const items=[
 ['Local Plates','Macadamia Nut Crusted Mahi',['F','TN','C'],false,'Macadamia nut + coconut'],
 ['Local Plates','Mochiko Chicken Plate',['S'],false,'Teriyaki adds gluten/wheat'],
 
-['Poke Bowls','Ahi Poke Bowl',['F'],false,'Shoyu/teriyaki add soy + gluten/wheat; spicy adds egg'],
-['Poke Bowls','Salmon Poke Bowl',['F'],false,'Sauce choice affects allergens'],
+['Poke Bowls','Ahi Poke Bowl',['F','S','SE'],false,'Shoyu/teriyaki add soy + gluten/wheat; spicy adds egg'],
+['Poke Bowls','Salmon Poke Bowl',['F','S','SE'],false,'Sauce choice affects allergens'],
 
 ['Keiki','Fish & Chips',['F','G'],false,'Shared fryer'],
 ['Keiki','Cheeseburger & Fries',['G','D'],false,'Shared fryer'],
