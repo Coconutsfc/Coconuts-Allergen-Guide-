@@ -196,23 +196,23 @@ const items=[
 ['Keiki','Hot Dog & Fries',['G'],false,'Shared fryer'],
 ['Keiki','Grilled Mahi-Mahi & Rice',['F'],true,''],
 
-['Sides','Coconut Milk Coleslaw',['C'],true,''],
+['Sides','Coconut Milk Coleslaw',['C','S'],true,''],
 ['Sides','Side Green Salad',[],false,'Dressing determines allergens'],
 ['Sides','Side Caesar Salad',['D','G','E','F'],false,''],
-['Sides','Macaroni Salad',['G','E'],false,''],
+['Sides','Macaroni Salad',['G','E','S'],false,''],
 ['Sides','Fries',[],false,'Shared fryer'],
 ['Sides','White Rice',[],true,''],
 ['Sides','Brown Rice',[],true,''],
 
 ['Sauces','Lemon Butter',['D'],false,''],
-['Sauces','Wasabi / Ginger Wasabi Aioli',['E'],false,''],
-['Sauces','Garlic / Lemon / Sriracha Aioli',['E'],false,''],
-['Sauces','Mac Nut Pesto / Pesto Aioli',['TN','E','D'],false,'Macadamia nut'],
+['Sauces','Wasabi / Ginger Wasabi Aioli',['E','S'],false,''],
+['Sauces','Garlic / Lemon / Sriracha Aioli',['E','S'],false,''],
+['Sauces','Mac Nut Pesto / Pesto Aioli',['TN','E','D','S'],false,'Macadamia nut'],
 ['Sauces','Teriyaki',['S','G'],false,''],
-['Sauces','Shoyu',['S','G'],false,''],
-['Sauces','Tartar Sauce',['E'],false,''],
+['Sauces','Shoyu',['S'],false,''],
+['Sauces','Tartar Sauce',['E','S'],false,''],
 ['Sauces','Furikake',['SE'],false,''],
-['Sauces','Caesar Dressing',['E','D','F'],false,'']
+['Sauces','Caesar Dressing',['E','D','F','S'],false,'']
 ];
 
 const cats=['All',...new Set(items.map(x=>x[0]))];
